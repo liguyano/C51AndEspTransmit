@@ -2,12 +2,9 @@
 #include <INTRINS.H>
 #include "SSS.h"
 #include "Transport.h"
-#define sn(p,v) DIAPlaySMG_Bit(SMG_duanma[v],p); Delay10ms()
-#define snd(p,v) DIAPlaySMG_Bit(SMG_duanma[v]&0x7f,p); Delay10ms()
-unsigned char code SMG_duanma[18]=
-        {0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,
-         0x80,0x90,0x88,0x80,0xc6,0xc0,0x86,0x8e,
-         0xbf,0x7f};/*用于数码管段选*/
+unsigned char  SMG_duanma[18]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,
+                               0x80,0x90,0x88,0x80,0xc6,0xc0,0x86,0x8e,
+                               0xbf,0x7f};
 void SelectHC573(unsigned char channel)/*74HC573锁存器*/
 {
     switch(channel)
@@ -58,13 +55,7 @@ void DIAPlaySMG_Bit(unsigned char value, unsigned char pos)/*数码管显示*/
     P0 = value;
     P2&=0x1f;
 }
-void Delay100us()		//@11.0592MHz
-{
-    unsigned char i;
-    _nop_();
-    i = 43;
-    while (--i);
-}
+
 void Timer0_Init(void)		//5ms@11.0592MHz
 {
     AUXR |= 0x80;			//imer clock is 1T mode
@@ -78,12 +69,15 @@ void Timer0_Init(void)		//5ms@11.0592MHz
 }
 void main()
 {
-    //Timer0_Init();
-    Tr_init();
     P32=1;
+    UartInit();
     P33=1;//set a high firstly or that can't read
+    Timer0_Init();
+    Tr_init();
+
     while (1)
     {
+
         sn(0,10);
         sn(1,P32);
         sn(2,P33);
