@@ -3,6 +3,17 @@
 //
 
 #include "Transport.h"
+void Delay10ms()		//@11.0592MHz
+{
+    unsigned char i, j;
+
+    i = 18;
+    j = 235;
+    do
+    {
+        while (--j);
+    } while (--i);
+}
 
 void Delay1000ms()		//@11.0592MHz
 {
@@ -35,12 +46,22 @@ void TR_send(unsigned char dat)
     {
         TT=dat&(0x80>>i);
         RT=1;
+        Delay10ms();
         RT=0;
+        Delay10ms();
         UART_SendByte(TT);
-        Delay1000ms();
     }
     Tr_init();
 }
+void Delay100ms()		//@11.0592MHz
+{
+    unsigned char i;
+
+    _nop_();
+    i = 43;
+    while (--i);
+}
+
 unsigned char TR_recv()
 {unsigned char re,i;
     TT=0;// ready to receive

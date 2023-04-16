@@ -29,17 +29,7 @@ void SelectHC573(unsigned char channel)/*74HC573锁存器*/
             break;
     }
 }
-void Delay10ms()		//@11.0592MHz
-{
-    unsigned char i, j;
 
-    i = 18;
-    j = 235;
-    do
-    {
-        while (--j);
-    } while (--i);
-}
 
 void DIAPlaySMG_Bit(unsigned char value, unsigned char pos)/*数码管显示*/
 {

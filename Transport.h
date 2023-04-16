@@ -16,7 +16,9 @@
         /*用于数码管段选*/
 
         void Tr_init();
-void TR_send(unsigned char dat);
+void Delay10ms();
+void Delay100ms();
+        void TR_send(unsigned char dat);
 unsigned char TR_recv();
 void Delay1000ms();
 #endif //CAR_DRIVER_TRANSPORT_H
