@@ -1,4 +1,8 @@
 # C51AndEspTransmit
+## update in 令和5年4月22日 9:25:46
+delete the code can't be used.
+And change the start and end signal.
+
 ## update in 令和5年4月16日 16:04:06
 run succed. Just need delay slower than the slave.
 ```c

@@ -35,3 +35,14 @@ void UART_SendByte(unsigned char Byte)
 	while(TI==0);
 	TI=0;
 }
+void UART_SendString(const char * str)
+{
+    char* t=str;
+
+    do {
+        UART_SendByte(*t);
+        t++;
+    } while (t!='\0');
+
+
+}

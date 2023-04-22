@@ -4,7 +4,7 @@
 
 #ifndef CAR_DRIVER_TRANSPORT_H
 #define CAR_DRIVER_TRANSPORT_H
-#include "STC15F2K60S2.H"
+#include <STC89C5xRC.H>
 #include "INTRINS.H"
 #include "UART.h"
 #include "SSS.h"

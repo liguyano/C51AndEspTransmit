@@ -64,13 +64,23 @@ void Delay100ms()		//@11.0592MHz
 
 unsigned char TR_recv()
 {unsigned char re,i;
+    UART_SendString("send the ans\0");
     TT=0;// ready to receive
+    Delay10ms();
+    TT=1;
     for (i=0;i<8;i++)
     {
-        while (!TT);
+        UART_SendString("wa");
+        while (!TT){
+
+        }
         if (RT)
         {
             re |= (0x80>>i);
+        }
+        while (TT){
+            UART_SendByte('\\');
+            UART_SendByte('\n');
         }
     }
     Tr_init();
