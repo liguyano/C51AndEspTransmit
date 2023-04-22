@@ -38,9 +38,9 @@ void Tr_init()
 void TR_send(unsigned char dat)
 {
     unsigned char i;
+    Delay10ms();
+    TT=1;
     TT=0;
-    RT=1;
-    while (RT);//wait for receive
     RT=0;
     for (i=0;i<8;i++)
     {
@@ -49,7 +49,6 @@ void TR_send(unsigned char dat)
         Delay10ms();
         RT=0;
         Delay10ms();
-        UART_SendByte(TT);
     }
     Tr_init();
 }
@@ -63,26 +62,25 @@ void Delay100ms()		//@11.0592MHz
 }
 
 unsigned char TR_recv()
-{unsigned char re,i;
-    UART_SendString("send the ans\0");
-    TT=0;// ready to receive
-    Delay10ms();
-    TT=1;
+{unsigned char re=0,i;
+    Wait_send();
     for (i=0;i<8;i++)
     {
-        UART_SendString("wa");
-        while (!TT){
-
-        }
+        RT=1;
+        TT=1;
+        while (TT);
         if (RT)
         {
             re |= (0x80>>i);
         }
-        while (TT){
-            UART_SendByte('\\');
-            UART_SendByte('\n');
-        }
+        while (!TT);
     }
     Tr_init();
     return re;
+}
+void Wait_send()
+{
+    while (!RT);
+    RT=1;
+    while (RT);
 }

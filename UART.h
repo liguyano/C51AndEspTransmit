@@ -5,5 +5,4 @@
 void UartInit(void);	//115200bps@11.0592MHz
 void UART_SendByte(unsigned char Byte);
 void UART_SendString(const char * str);
-
 #endif

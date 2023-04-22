@@ -1,4 +1,4 @@
-#include<STC15F2K60S2.H>
+#include <STC89C5xRC.H>
 #include <INTRINS.H>
 #include "SSS.h"
 #include "Transport.h"
@@ -16,14 +16,20 @@ void Timer0_Init(void)		//5ms@11.0592MHz
 }
 void main()
 {
-    P32=1;
     UartInit();
-    Timer0_Init();
-    P33=1;//set a high firstly or that can't read
-   // Timer0_Init();
     Tr_init();
+    //Timer0_Init();
+    UART_SendByte('h');
+    UART_SendByte('a');
+    UART_SendByte('e');
+    UART_SendByte('l');
+    UART_SendByte('l');
+    UART_SendByte('o');
+
     while (1)
     {
+        UART_SendByte(TR_recv());
+      // Delay1000ms();
     }
 }
 void time0() interrupt NUM1
@@ -32,7 +38,18 @@ void time0() interrupt NUM1
     t++;
     if (t>=200)
     {
-
+        UART_SendByte('h');
+        UART_SendByte('e');
+        UART_SendByte('l');
+        UART_SendByte('l');
+        UART_SendByte('o');
+        TR_send('A');
+       // Delay100ms();
+        TR_send('B');
+        //Delay100ms();
+        TR_send('C');
+       // Delay100ms();
+        TR_send('D');
         t=0;
     }
     TL0 = 0x00;				//Initial timer value
