@@ -7,16 +7,14 @@
   */
 void UartInit(void)		//115200bps@11.0592MHz
 {
-    PCON &= 0x7F;		//Baudrate no doubled
-    SCON = 0x50;		//8 bits and variable baudrate
-    AUXR |= 0x40;		//imer clock is 1T mode
-    AUXR &= 0xFE;		//UART 1 use Timer1 as baudrate generator
-    TMOD &= 0x0F;		//Set timer work mode
-    TMOD |= 0x20;		//Set timer work mode
-    TL1 = 0xFD;			//Initial timer value
-    TH1 = 0xFD;			//Set reload value
-    ET1 = 0;			//Disable Timer%d interrupt
-    TR1 = 1;			//Timer1 start run
+    SCON=0x50;
+    PCON |= 0x80;
+    TMOD &= 0x0F;		//设置定时器模式
+    TMOD |= 0x20;		//设置定时器模式
+    TL1 = 0xF3;		//设定定时初值
+    TH1 = 0xF3;		//设定定时器重装值
+    ET1 = 0;		//禁止定时器1中断
+    TR1 = 1;		//启动定时器1
     EA=1;
     ES=1;
 }
